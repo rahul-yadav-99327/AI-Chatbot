@@ -107,7 +107,7 @@ router.post('/', async (req, res) => {
             // 1. Try OpenAI
             const completion = await openai.chat.completions.create({
                 messages: messagesPayload,
-                model: "gpt-3.5-turbo",
+                model: "gpt-4o-mini",
             });
             assistantMessage = completion.choices[0].message.content;
             console.log("[Chat] OpenAI Responded.");
@@ -135,6 +135,11 @@ router.post('/', async (req, res) => {
 
             } catch (hfErr) {
                 console.error("[Chat] Hugging Face API Failed:", hfErr.message);
+                if (hfErr.response) {
+                    console.error("[Chat] HF Error Status:", hfErr.status);
+                    console.error("[Chat] HF Error Data:", JSON.stringify(hfErr.response.data));
+                }
+                console.error("[Chat] HF Error Stack:", hfErr.stack);
 
                 // 3. Offline Fallback
                 if (contextFound && foundArticles.length > 0) {
@@ -157,7 +162,7 @@ router.post('/', async (req, res) => {
                     }
 
                     if (titles.length > 0) {
-                        assistantMessage = "I'm having trouble connecting to both AI services (OpenAI & Hugging Face), but I can help you with these topics from our Knowledge Base:\n\n" +
+                        assistantMessage = "I'm having trouble connecting to AI service OpenAI, but I can help you with these topics from our Knowledge Base:\n\n" +
                             titles.map(t => "• " + t).join("\n") +
                             "\n\nPlease try asking about one of these.";
                     } else {
