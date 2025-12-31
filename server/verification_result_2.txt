@@ -1,0 +1,16 @@
+Starting Verification 2...
+--- server_log_verify_2.txt Dump ---
+﻿Chat Route Loaded. API Key starts with: sk-proj-64...
+Loading Environment Variables...
+MONGO_URI: mongodb+srv://rahulyadav99327_db_user:2MvS1XOadjigLMbr@cluster0.mv99uzt.mongodb.net/
+OPENAI_API_KEY: Set (starts with sk-proj)
+Server running on port 5000
+MongoDB Connected to mongodb+srv://rahulyadav99327_db_user:2MvS1XOadjigLMbr@cluster0.mv99uzt.mongodb.net/
+
+-----------------------
+Registering user: verifyuser_1767159827092
+Register Status: 200
+Register Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NTRiODEzMTIzMjYxYjdkZjExZmYxYSIsImlhdCI6MTc2NzE1OTgyNywiZXhwIjoxNzY3MTYzNDI3fQ.nmUeEnuSnPIgVtBOErWRbdIYHj-g-Knsk5-Xl0pl8WI","user":{"id":"6954b813123261b7df11ff1a","username":"verifyuser_1767159827092","email":"verify_1767159827093@example.com"}}
+Logging in...
+Login Status: 200
+Login Body: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NTRiODEzMTIzMjYxYjdkZjExZmYxYSIsImlhdCI6MTc2NzE1OTgyNywiZXhwIjoxNzY3MTYzNDI3fQ.nmUeEnuSnPIgVtBOErWRbdIYHj-g-Knsk5-Xl0pl8WI","user":{"id":"6954b813123261b7df11ff1a","username":"verifyuser_1767159827092","email":"verify_1767159827093@example.com"}}
