@@ -40,7 +40,8 @@ const ChatWidget = () => {
 
     const fetchHistory = async (id) => {
         try {
-            const res = await axios.get(`/api/chat/history/${id}`);
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            const res = await axios.get(`${apiUrl}/api/chat/history/${id}`);
             if (res.data && res.data.length > 0) {
                 setMessages(res.data);
             } else {
@@ -83,7 +84,8 @@ const ChatWidget = () => {
         saveSessionToHistory(userMsg.content);
 
         try {
-            const res = await axios.post('/api/chat', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            const res = await axios.post(`${apiUrl}/api/chat`, {
                 sessionId,
                 message: userMsg.content
             });
