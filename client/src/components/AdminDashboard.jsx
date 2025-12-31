@@ -16,11 +16,12 @@ const AdminDashboard = () => {
     const loadData = async () => {
         setIsLoading(true);
         try {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
             if (activeTab === 'articles') {
-                const res = await axios.get('/api/kb');
+                const res = await axios.get(`${apiUrl}/api/kb`);
                 setArticles(Array.isArray(res.data) ? res.data : []);
             } else {
-                const res = await axios.get('/api/analytics');
+                const res = await axios.get(`${apiUrl}/api/analytics`);
                 setAnalytics(res.data);
             }
         } catch (err) {
@@ -33,7 +34,8 @@ const AdminDashboard = () => {
     const handleCreateArticle = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/api/kb', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            await axios.post(`${apiUrl}/api/kb`, {
                 ...newArticle,
                 tags: newArticle.tags.split(',').map(t => t.trim())
             });
@@ -48,7 +50,8 @@ const AdminDashboard = () => {
     const handleDeleteArticle = async (id) => {
         if (!confirm("Are you sure you want to delete this article?")) return;
         try {
-            await axios.delete(`/api/kb/${id}`);
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            await axios.delete(`${apiUrl}/api/kb/${id}`);
             loadData();
         } catch (err) {
             alert("Error deleting article");
@@ -62,8 +65,8 @@ const AdminDashboard = () => {
                 <button
                     onClick={() => setActiveTab('articles')}
                     className={`flex-1 px-6 py-3 rounded-xl flex items-center justify-center gap-2 font-semibold text-sm transition-all ${activeTab === 'articles'
-                            ? 'bg-white text-indigo-600 shadow-sm border border-slate-200'
-                            : 'text-slate-500 hover:bg-white/60 hover:text-slate-700'
+                        ? 'bg-white text-indigo-600 shadow-sm border border-slate-200'
+                        : 'text-slate-500 hover:bg-white/60 hover:text-slate-700'
                         }`}
                 >
                     <Book size={18} /> Knowledge Base
@@ -71,8 +74,8 @@ const AdminDashboard = () => {
                 <button
                     onClick={() => setActiveTab('analytics')}
                     className={`flex-1 px-6 py-3 rounded-xl flex items-center justify-center gap-2 font-semibold text-sm transition-all ${activeTab === 'analytics'
-                            ? 'bg-white text-indigo-600 shadow-sm border border-slate-200'
-                            : 'text-slate-500 hover:bg-white/60 hover:text-slate-700'
+                        ? 'bg-white text-indigo-600 shadow-sm border border-slate-200'
+                        : 'text-slate-500 hover:bg-white/60 hover:text-slate-700'
                         }`}
                 >
                     <PieChart size={18} /> Analytics & Insights

@@ -135,7 +135,7 @@ const Home = () => {
             </main>
 
             {/* Chat Widget sits on top of everything */}
-            <ChatWidget />
+            <ChatWidget userId={user ? (user._id || user.username) : null} />
         </div>
     );
 };

@@ -4,7 +4,7 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-const ChatWidget = () => {
+const ChatWidget = ({ userId }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
@@ -15,10 +15,12 @@ const ChatWidget = () => {
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
-        const storedSessions = JSON.parse(localStorage.getItem('chat_sessions') || '[]');
+        if (!userId) return; // Don't load if no user
+        const storageKey = `chat_sessions_${userId}`;
+        const storedSessions = JSON.parse(localStorage.getItem(storageKey) || '[]');
         setChatSessions(storedSessions);
         startNewChat();
-    }, []);
+    }, [userId]);
 
     const startNewChat = () => {
         const newSessionId = 'sess_' + Math.random().toString(36).substr(2, 9);
@@ -59,6 +61,7 @@ const ChatWidget = () => {
     };
 
     const saveSessionToHistory = (currentMsg) => {
+        if (!userId) return;
         const existing = chatSessions.find(s => s.id === sessionId);
         if (!existing) {
             const newSession = {
@@ -68,7 +71,7 @@ const ChatWidget = () => {
             };
             const updatedSessions = [newSession, ...chatSessions];
             setChatSessions(updatedSessions);
-            localStorage.setItem('chat_sessions', JSON.stringify(updatedSessions));
+            localStorage.setItem(`chat_sessions_${userId}`, JSON.stringify(updatedSessions));
         }
     };
 
